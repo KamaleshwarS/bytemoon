@@ -1,0 +1,745 @@
+<title>ByteMoon Studio — Freelance Web & App Development</title>
+<style>
+  :root {
+    --ink-plum: #1B1230;
+    --ink-plum-2: #241a3d;
+    --paper: #FBF1E4;
+    --paper-2: #f4e6d3;
+    --gold: #FFB84D;
+    --coral: #FF5D73;
+    --violet: #7C5CFF;
+    --text-dark: #2A1E45;
+    --text-dark-soft: #5b4d78;
+    --text-light: #F3ECFB;
+    --text-light-soft: #c9bce3;
+    --card-line-light: rgba(42, 30, 69, 0.12);
+    --card-line-dark: rgba(255, 184, 77, 0.18);
+    --bg: var(--paper);
+    --bg-2: var(--paper-2);
+    --fg: var(--text-dark);
+    --fg-soft: var(--text-dark-soft);
+    --card-line: var(--card-line-light);
+    --card-bg: #ffffff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: var(--ink-plum);
+      --bg-2: var(--ink-plum-2);
+      --fg: var(--text-light);
+      --fg-soft: var(--text-light-soft);
+      --card-line: var(--card-line-dark);
+      --card-bg: #221837;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: var(--ink-plum);
+    --bg-2: var(--ink-plum-2);
+    --fg: var(--text-light);
+    --fg-soft: var(--text-light-soft);
+    --card-line: var(--card-line-dark);
+    --card-bg: #221837;
+  }
+  :root[data-theme="light"] {
+    --bg: var(--paper);
+    --bg-2: var(--paper-2);
+    --fg: var(--text-dark);
+    --fg-soft: var(--text-dark-soft);
+    --card-line: var(--card-line-light);
+    --card-bg: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", Georgia, serif;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .mono {
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  }
+
+  a { color: inherit; }
+
+  section {
+    padding: clamp(3rem, 8vw, 6.5rem) clamp(1.25rem, 6vw, 3rem);
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, var(--bg-2), var(--bg) 65%);
+    overflow: hidden;
+    padding-top: clamp(2rem, 6vw, 3rem);
+  }
+
+  canvas#sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .moon-glow {
+    position: absolute;
+    top: -140px;
+    right: -80px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--gold) 0%, rgba(255,184,77,0.25) 45%, rgba(255,184,77,0) 72%);
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1080px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 clamp(1.25rem, 6vw, 3rem);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: color-mix(in srgb, var(--gold) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1.75rem;
+  }
+
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px 2px var(--gold);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 5rem);
+    font-weight: 500;
+    line-height: 1.04;
+    color: var(--fg);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(100deg, var(--gold), var(--coral) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p.sub {
+    max-width: 46ch;
+    margin-top: 1.6rem;
+    font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+    color: var(--fg-soft);
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2.4rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .btn-primary {
+    background: linear-gradient(100deg, var(--gold), var(--coral));
+    color: #241333;
+    box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--coral) 60%, transparent);
+  }
+  .btn-primary:hover { box-shadow: 0 12px 28px -8px color-mix(in srgb, var(--coral) 70%, transparent); }
+
+  .btn-ghost {
+    border-color: var(--card-line);
+    color: var(--fg);
+    background: transparent;
+  }
+  .btn-ghost:hover { border-color: var(--gold); }
+
+  .hero-stats {
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stats div { min-width: 110px; }
+  .hero-stats .num {
+    font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    font-size: 1.9rem;
+    color: var(--gold);
+  }
+  .hero-stats .label {
+    font-size: 0.8rem;
+    color: var(--fg-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section-head {
+    max-width: 60ch;
+    margin-bottom: clamp(2.2rem, 5vw, 3.5rem);
+  }
+  .section-head .kicker {
+    font-family: ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .section-head h2 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    font-weight: 500;
+  }
+  .section-head p {
+    color: var(--fg-soft);
+    margin-top: 0.9rem;
+    font-size: 1.05rem;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services {
+    background: var(--bg-2);
+  }
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.1rem;
+  }
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 14px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--coral));
+    opacity: 0.9;
+  }
+  .service-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: ui-sans-serif, sans-serif;
+    margin-bottom: 0.6rem;
+  }
+  .service-card p {
+    color: var(--fg-soft);
+    font-size: 0.95rem;
+    margin: 0 0 1rem;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tag {
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--violet) 14%, transparent);
+    color: var(--violet);
+    border: 1px solid color-mix(in srgb, var(--violet) 30%, transparent);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-box {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background: var(--card-bg);
+  }
+  @media (max-width: 720px) {
+    .about-box { grid-template-columns: 1fr; }
+  }
+  .about-copy h2 {
+    font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+    margin: 0.6rem 0 1.1rem;
+  }
+  .about-copy p {
+    color: var(--fg-soft);
+    margin: 0 0 1rem;
+    max-width: 58ch;
+  }
+  .about-copy strong { color: var(--fg); }
+  .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.5rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: 9px;
+    border: 1px solid color-mix(in srgb, var(--violet) 40%, transparent);
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .linkedin-link:hover { border-color: var(--violet); transform: translateX(2px); }
+  .linkedin-link .li-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    background: var(--violet);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-family: ui-sans-serif, sans-serif;
+  }
+  .linkedin-link .arrow { color: var(--coral); }
+  .about-skills {
+    align-self: stretch;
+    border-left: 1px solid var(--card-line);
+    padding-left: clamp(1.5rem, 3vw, 2rem);
+  }
+  @media (max-width: 720px) {
+    .about-skills { border-left: none; border-top: 1px solid var(--card-line); padding-left: 0; padding-top: 1.5rem; }
+  }
+  .about-skills > .k {
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-soft);
+    display: block;
+    margin-bottom: 0.9rem;
+  }
+  .about-skills .tag-row { gap: 0.5rem; }
+
+  /* ---------- PROCESS ---------- */
+  .process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .process-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.25rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--card-line);
+  }
+  .process-item:last-child { border-bottom: none; }
+  .process-num {
+    font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    opacity: 0.85;
+  }
+  .process-item h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-family: ui-sans-serif, sans-serif;
+    margin-bottom: 0.35rem;
+  }
+  .process-item p {
+    color: var(--fg-soft);
+    margin: 0;
+    max-width: 60ch;
+  }
+  .process-item .when {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--coral);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+
+  /* ---------- WORK TYPES ---------- */
+  .work {
+    background: var(--bg-2);
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .work-card {
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #241333;
+    overflow: hidden;
+  }
+  .work-card h3 {
+    font-family: ui-sans-serif, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .work-card p {
+    font-size: 0.92rem;
+    margin: 0;
+    opacity: 0.85;
+  }
+  .work-card.c1 { background: linear-gradient(150deg, var(--gold), #ffd28f); }
+  .work-card.c2 { background: linear-gradient(150deg, var(--coral), #ff9aa8); }
+  .work-card.c3 { background: linear-gradient(150deg, var(--violet), #b3a2ff); color: #fff; }
+  .work-card.c4 { background: linear-gradient(150deg, #ffd28f, var(--coral)); }
+
+  /* ---------- CONTACT ---------- */
+  .contact {
+    position: relative;
+    background: radial-gradient(ellipse 100% 100% at 50% 100%, var(--bg-2), var(--bg) 70%);
+  }
+  .contact-box {
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    background: var(--card-bg);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (max-width: 720px) {
+    .contact-box { grid-template-columns: 1fr; }
+    .process-item { grid-template-columns: 40px 1fr; }
+  }
+  .contact-box h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    margin-bottom: 0.9rem;
+  }
+  .contact-box > div:first-child p {
+    color: var(--fg-soft);
+    max-width: 42ch;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid var(--card-line);
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 0.95rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .contact-link:hover { border-color: var(--gold); transform: translateX(2px); }
+  .contact-link .k {
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-soft);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .contact-link .v { font-weight: 600; }
+  .contact-link .arrow { color: var(--coral); font-size: 1.1rem; }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.25rem 3rem;
+    color: var(--fg-soft);
+    font-size: 0.85rem;
+  }
+  footer .brand-mark {
+    font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<section class="hero">
+  <canvas id="sky"></canvas>
+  <div class="moon-glow"></div>
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span>Currently taking on new projects</span>
+    <h1>Websites &amp; apps, built <em>after hours</em>, shipped like it's my only job.</h1>
+    <p class="sub">I'm ByteMoon Studio — a one-person freelance dev shop. I build business websites, online stores with real payments, and custom web apps for owners who need it done right, not just done.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="mailto:skamaleshwar55@gmail.com?subject=Project%20inquiry">Start a project</a>
+      <a class="btn btn-ghost" href="#work">See what I build</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="num">1.5yr</div><div class="label">DevOps experience</div></div>
+      <div><div class="num">4</div><div class="label">Service lines</div></div>
+      <div><div class="num">24h</div><div class="label">Reply time</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Night shift menu</span>
+      <h2>What I build</h2>
+      <p>Four service lines, one person handling your project end to end — no account managers, no handoffs.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>Business Websites</h3>
+        <p>Marketing sites and landing pages that make a small business look established — fast, mobile-first, built to convert visitors into calls and messages.</p>
+        <div class="tag-row"><span class="tag">Next.js</span><span class="tag">SEO</span><span class="tag">CMS</span></div>
+      </div>
+      <div class="service-card">
+        <h3>E-commerce Stores</h3>
+        <p>Online stores with real checkout — payments via Stripe/Razorpay, order management, and delivery tracking wired up so nothing gets lost between "ordered" and "delivered."</p>
+        <div class="tag-row"><span class="tag">Payments</span><span class="tag">Orders</span><span class="tag">Tracking</span></div>
+      </div>
+      <div class="service-card">
+        <h3>Web Applications</h3>
+        <p>Custom tools and dashboards for internal use — booking systems, admin panels, anything that replaces a spreadsheet with something your team actually enjoys using.</p>
+        <div class="tag-row"><span class="tag">React</span><span class="tag">Dashboards</span><span class="tag">Auth</span></div>
+      </div>
+      <div class="service-card">
+        <h3>Full-Stack Builds</h3>
+        <p>Frontend, backend, and database as one connected system — for projects that need custom logic no template or plugin can cover.</p>
+        <div class="tag-row"><span class="tag">Node</span><span class="tag">Postgres</span><span class="tag">APIs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-box">
+      <div class="about-copy">
+        <span class="kicker">Who's building this</span>
+        <h2>A DevOps engineer, moonlighting as a builder.</h2>
+        <p>By day, I work as a DevOps Engineer at <strong>Giggso</strong>, where I've spent the last 1.5 years deep in infrastructure, deployment pipelines, and — increasingly — using AI tools to move faster and build better. This studio is where that same discipline goes into shipping websites and apps for people who need one.</p>
+        <p>I'm early in freelancing and building this practice project by project — which means early clients get direct attention, fast turnarounds, and pricing that reflects that we're building a track record together.</p>
+        <a class="linkedin-link" href="https://www.linkedin.com/in/kamaleshwar-s/" target="_blank" rel="noopener noreferrer">
+          <span class="li-icon">in</span> View my LinkedIn <span class="arrow">↗</span>
+        </a>
+      </div>
+      <div class="about-skills">
+        <span class="k">Comfortable with</span>
+        <div class="tag-row">
+          <span class="tag">CI/CD</span><span class="tag">Cloud Infra</span><span class="tag">Docker</span>
+          <span class="tag">AI-assisted dev</span><span class="tag">Node.js</span><span class="tag">React</span>
+          <span class="tag">Postgres</span><span class="tag">Deployment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">How a project runs</span>
+      <h2>Brief to launch, in four steps</h2>
+      <p>The actual sequence every project goes through with me — so you know what to expect and when.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-item">
+        <div class="process-num">01</div>
+        <div>
+          <h3>Brief</h3>
+          <p>We talk through what the business needs — goals, budget, and what "done" looks like — before any design or code starts.</p>
+          <span class="when">Day 1</span>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">02</div>
+        <div>
+          <h3>Build</h3>
+          <p>Design and development in short cycles, with working previews shared along the way so there are no surprises at the end.</p>
+          <span class="when">Week 1–2</span>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">03</div>
+        <div>
+          <h3>Ship</h3>
+          <p>Payments, order flows, and tracking tested end to end before launch. The site goes live on your domain, not a placeholder link.</p>
+          <span class="when">Launch day</span>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">04</div>
+        <div>
+          <h3>Support</h3>
+          <p>A window of post-launch fixes and small changes included, so the site keeps working as your business does.</p>
+          <span class="when">30 days after</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Founding client slots open</span>
+      <h2>What I'm ready to take on first</h2>
+      <p>ByteMoon Studio is newly open for projects — no portfolio of past clients yet, and I'd rather say that plainly than fake one. Here's what I'm equipped to build from day one, backed by real infrastructure and deployment experience from my day job.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card c1">
+        <h3>Local business site</h3>
+        <p>For a restaurant, clinic, or studio that needs to look as good online as it does in person.</p>
+      </div>
+      <div class="work-card c2">
+        <h3>Online store</h3>
+        <p>For a small retailer ready to move from Instagram DMs to a real checkout with tracked delivery.</p>
+      </div>
+      <div class="work-card c3">
+        <h3>Internal tool</h3>
+        <p>For a team running on spreadsheets and group chats that's ready for one dashboard instead.</p>
+      </div>
+      <div class="work-card c4">
+        <h3>Full product build</h3>
+        <p>For a founder with an idea sketched out, looking for someone to take it to a working, deployed application.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div>
+        <h2>Have a project in mind?</h2>
+        <p>Tell me what you're trying to build — website, store, or app — and I'll get back to you within a day with a straight answer on scope and cost.</p>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:skamaleshwar55@gmail.com">
+          <span><span class="k">Email</span><span class="v">skamaleshwar55@gmail.com</span></span>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="contact-link" href="tel:+917904387016">
+          <span><span class="k">Call / WhatsApp</span><span class="v">+91 79043 87016</span></span>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/kamaleshwar-s/" target="_blank" rel="noopener noreferrer">
+          <span><span class="k">LinkedIn</span><span class="v">in/kamaleshwar-s</span></span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="brand-mark">ByteMoon Studio</span> — freelance web &amp; app development · built one project at a time
+</footer>
+
+<script>
+(function () {
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stars = [];
+  var w, h, dpr;
+
+  function resize() {
+    var hero = canvas.parentElement;
+    w = hero.clientWidth;
+    h = hero.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.floor((w * h) / 9000);
+    stars = [];
+    for (var i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h * 0.85,
+        r: Math.random() * 1.3 + 0.3,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.4 + Math.random() * 0.6
+      });
+    }
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var twinkle = reduceMotion ? 1 : 0.55 + 0.45 * Math.sin(t * 0.0006 * s.speed + s.phase);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(251, 241, 228,' + (0.15 + 0.5 * twinkle) + ')';
+      ctx.fill();
+    }
+    if (!reduceMotion) requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(draw);
+  if (reduceMotion) draw(0);
+})();
+</script>
